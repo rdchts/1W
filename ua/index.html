@@ -1,71 +1,88 @@
-
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Бонус +500%</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #0a2540, #1c3d6e);
-            color: white;
-            text-align: center;
-            padding: 40px 20px;
-        }
-        .container {
-            max-width: 500px;
-            margin: auto;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px #00f2ff;
-        }
-        h1 {
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-        p {
-            font-size: 17px;
-            line-height: 1.5;
-        }
-        .button {
-            display: block;
-            width: 100%;
-            margin: 15px 0;
-            padding: 14px;
-            font-size: 16px;
-            font-weight: bold;
-            color: white;
-            background: #0fd850;
-            border: none;
-            border-radius: 8px;
-            text-decoration: none;
-            box-shadow: 0 0 10px #0fd850;
-        }
-        .button.telegram {
-            background: #229ED9;
-            box-shadow: 0 0 10px #229ED9;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>🎰 Чат-бонус</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: #e5ddd5;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .chat-container {
+      max-width: 420px;
+      margin: 40px auto;
+      padding: 15px;
+      background-image: url('https://i.imgur.com/jbKjxke.png');
+      background-size: cover;
+      border-radius: 15px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+    }
+    .message {
+      padding: 10px 14px;
+      border-radius: 18px;
+      margin: 8px 0;
+      max-width: 80%;
+      line-height: 1.4;
+      font-size: 15px;
+    }
+    .bot {
+      background-color: white;
+      align-self: flex-start;
+      margin-right: auto;
+    }
+    .user {
+      background-color: #dcf8c6;
+      align-self: flex-end;
+      margin-left: auto;
+    }
+    .chat {
+      display: flex;
+      flex-direction: column;
+    }
+    .button {
+      display: block;
+      margin: 20px auto 0;
+      padding: 15px 20px;
+      text-align: center;
+      background: #0fd850;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      border-radius: 10px;
+      width: 90%;
+      box-shadow: 0 0 8px #0fd850;
+    }
+    .footer {
+      text-align: center;
+      font-size: 13px;
+      color: #555;
+      margin-top: 15px;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>💥 СЛИВ ПРОМОКОДУ НА +500%</h1>
-        <p>Тільки для 🇺🇦 гравців — активуй <strong>UA777WIN</strong></p>
-        <p>🎁 Отримай у 5 разів більше просто за реєстрацію</p>
-        <p>😮 Без документів. Без підводних каменів.<br>Бонус капає одразу — заходиш і граєш.</p>
-        <p>⛔️ Доступ обмежено. Промо працює лише поки активне</p>
-        <p>🎁 +500% на бонусний рахунок чекає тебе вже зараз</p>
-        <a id="bonusButton" class="button" href="#">👉 АКТИВУВАТИ ПРОМОКОД</a>
-        <a class="button telegram" href="https://t.me/dealinsider" target="_blank">💬 Перейти в Telegram</a>
-        <p style="font-size: 13px; margin-top: 20px;">🔞 18+ Азартні ігри можуть викликати залежність</p>
+  <div class="chat-container">
+    <div class="chat">
+      <div class="message bot">👋 Привіт! Хочеш виграти 🎁 +500% бонус на гру?</div>
+      <div class="message user">Так, а як це працює?</div>
+      <div class="message bot">Все просто — активуй промокод <strong>UA777WIN</strong> під час реєстрації</div>
+      <div class="message bot">🎰 І отримаєш у 5 разів більше на старт!</div>
+      <div class="message user">Де можна активувати?</div>
+      <div class="message bot">Натисни кнопку нижче 👇</div>
     </div>
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const clickId = urlParams.get('click_id') || 'unknown';
-        const targetUrl = `https://1wcjlr.com/v3/landing-page/casino?p=ob7a&sub1=${clickId}`;
-        document.getElementById('bonusButton').href = targetUrl;
-    </script>
+    <a id="bonusButton" class="button" href="#">🎯 Активувати промокод</a>
+    <div class="footer">🔞 Азартні ігри можуть викликати залежність</div>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const clickId = urlParams.get('click_id') || 'unknown';
+    const targetUrl = `https://1wcjlr.com/v3/landing-page/casino?p=ob7a&sub1=${clickId}`;
+    document.getElementById('bonusButton').href = targetUrl;
+  </script>
 </body>
 </html>
