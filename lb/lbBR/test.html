@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LuckyBot</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍀</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Rubik:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Rubik', sans-serif; background: #0d1117; color: #fff; padding: 50px 20px; margin: 0; text-align: center; }
+    h1 { font-family: 'Luckiest Guy', cursive; font-size: 40px; color: #ffc107; margin-bottom: 10px; display: inline-block; }
+    #dice-icon.animate { display: inline-block; animation: bounce 0.4s infinite; }
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    h2 { font-size: 24px; margin-top: 10px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .cards { margin: 30px auto 10px; display: flex; justify-content: center; gap: 30px; flex-wrap: nowrap; max-width: 100%; flex-direction: row; }
+    .card-wrapper { display: flex; flex-direction: column; align-items: center; }
+    .card-label { font-weight: bold; margin-bottom: 8px; font-size: 16px; }
+    .card-btn { border: none; border-radius: 10px; cursor: pointer; width: 120px; height: 180px; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.1); background: repeating-linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.04) 10px, transparent 10px, transparent 20px); position: relative; transition: transform 0.2s, box-shadow 0.3s; }
+    .card-btn:hover { transform: scale(1.07); }
+    .blue { background-color: #1a237e; } .blue:hover { box-shadow: 0 0 20px #536dfe; }
+    .red { background-color: #b71c1c; } .red:hover { box-shadow: 0 0 20px #ff5252; }
+    .green { background-color: #1b5e20; } .green:hover { box-shadow: 0 0 20px #69f0ae; }
+    .card-hint { font-size: 14px; color: #ccc; margin-top: 20px; min-height: 20px; height: 20px; }
+    .loading { font-size: 22px; margin-top: 40px; }
+    .result { margin-top: 0px; font-size: 24px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+    .result-card { background: #1a1f26; border: 1px solid #333; border-radius: 16px; padding: 15px 2.5vw; max-width: 400px; width: 100%; box-shadow: 0 0 20px rgba(255, 255, 255, 0.05); text-align: left; }
+    .result-card h3 { margin: 0 0 10px; font-size: 20px; color: #ffc107; }
+    .highlight { font-size: 28px; font-weight: bold; color: #fff; }
+    .comment { font-style: italic; color: #ccc; margin-top: 8px; font-size: 16px; }
+    .buttons { margin-top: 25px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .cta-button { padding: 20px 5vw; font-size: 22px; font-weight: bold; background-color: #ffc107; color: #000; border: none; border-radius: 12px; text-decoration: none; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.5); transition: transform 0.2s, box-shadow 0.2s; width: 100%; max-width: 400px; }
+    .cta-button:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(255, 193, 7, 0.7); }
+    .share-button { padding: 12px 24px; font-size: 16px; color: #fff; background-color: transparent; border: 1px solid #555; border-radius: 8px; cursor: pointer; transition: all 0.2s ease-in-out; }
+    .share-button:hover { background-color: #222; border-color: #888; color: #ffc107; }
+    .back-link { font-size: 16px; color: #aaa; text-decoration: underline; }
+    .back-link:hover { color: #fff; }
+    .promo-code { font-size: 18px; margin-top: 4px; color: #999; max-width: 400px; margin-left: auto; margin-right: auto; }
+    @media (max-width: 600px) {
+      .card-btn { width: 100px; height: 160px; }
+      .cards { flex-wrap: wrap; }
+      .cta-button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <h1><span id="dice-icon">🎲</span> LuckyBot</h1>
+  <h2 id="subtitle">Escolha uma carta e veja sua chance real de ganhar!</h2>
+  <div class="cards" id="cards-container">
+    <div class="card-wrapper">
+      <div class="card-label">Azul</div>
+      <button class="card-btn blue" onmouseenter="showHint('Tem certeza dessa?')" onclick="startReveal()"></button>
+    </div>
+    <div class="card-wrapper">
+      <div class="card-label">Vermelha</div>
+      <button class="card-btn red" onmouseenter="showHint('E se não for essa?')" onclick="startReveal()"></button>
+    </div>
+    <div class="card-wrapper">
+      <div class="card-label">Verde</div>
+      <button class="card-btn green" onmouseenter="showHint('Talvez essa traga sorte?')" onclick="startReveal()"></button>
+    </div>
+  </div>
+  <div class="card-hint" id="card-hint"></div>
+  <div id="loader" class="loading" style="display: none;"><span id="dice-loader">🔮</span> Analisando suas chances de vitória...</div>
+  <div class="result" id="result"></div>
+  <script>
+    const days = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+    const months = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+    const todayComments = {
+      high: ['Dia perfeito para jogar alto', 'Faça 10–15 giros sem parar', 'Boa sequência — hora de arriscar', 'Jogue com confiança, as chances são máximas'],
+      mid: ['Comece com 7–10 giros hoje', 'Boa chance para um depósito pequeno', 'Vale testar uma slot nova', 'Chance alta, não perca tempo'],
+      low: ['Comece com alguns giros para aquecer', 'Tem chance — tente um giro de teste', 'Pode jogar, mas com cautela', 'Teste sua sorte no seu jogo favorito']
+    };
+    const tomorrowComments = {
+      high: ['Pode arriscar 3–5 giros', 'Tem chance, mas hoje está melhor', 'Melhor dar uma pausa até amanhã', 'Comece com cuidado, sem pressa'],
+      mid: ['Chance pequena, mas às vezes dá sorte', 'Tente apenas um giro', 'Sem apostas grandes — só teste', 'Não espere grandes vitórias'],
+      low: ['Melhor não arriscar hoje', 'Hora de dar um tempo no jogo', 'Dia ruim para apostar — descanse', 'Vitória improvável, espere um pouco']
+    };
+    function pickRandom(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+    function generateDay(offset) {
+      const date = new Date();
+      date.setDate(date.getDate() + offset);
+      const min = offset === 0 ? 60 : 3;
+      const max = offset === 0 ? 100 : 40;
+      const chance = Math.floor(Math.random() * (max - min + 1)) + min;
+      let comment;
+      if (offset === 0) {
+        if (chance >= 85) comment = pickRandom(todayComments.high);
+        else if (chance >= 70) comment = pickRandom(todayComments.mid);
+        else comment = pickRandom(todayComments.low);
+      } else {
+        if (chance >= 26) comment = pickRandom(tomorrowComments.high);
+        else if (chance >= 11) comment = pickRandom(tomorrowComments.mid);
+        else comment = pickRandom(tomorrowComments.low);
+      }
+      return {
+        label: days[date.getDay()],
+        dateStr: `${date.getDate()} de ${months[date.getMonth()]}`,
+        chance,
+        comment,
+        tag: offset === 0 ? 'Hoje' : 'Amanhã'
+      };
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      const today = new Date().toISOString().slice(0, 10);
+      if (!localStorage.getItem('luckybot_result_' + today)) {
+        Object.keys(localStorage).forEach(key => {
+          if (key.startsWith('luckybot_result_')) localStorage.removeItem(key);
+        });
+      }
+    });
+    function getSavedResult() {
+      const todayKey = new Date().toISOString().slice(0, 10);
+      const saved = localStorage.getItem('luckybot_result_' + todayKey);
+      return saved ? JSON.parse(saved) : null;
+    }
+    function saveResult(data) {
+      const todayKey = new Date().toISOString().slice(0, 10);
+      localStorage.setItem('luckybot_result_' + todayKey, JSON.stringify(data));
+    }
+    const resultEl = document.getElementById('result');
+    const cards = document.getElementById('cards-container');
+    const loader = document.getElementById('loader');
+    const subtitle = document.getElementById('subtitle');
+    const hintEl = document.getElementById('card-hint');
+    const dice = document.getElementById('dice-icon');
+    function showResult() {
+      const saved = getSavedResult();
+      const data = saved || {
+        today: generateDay(0),
+        tomorrow: generateDay(1)
+      };
+      if (!saved) saveResult(data);
+      loader.style.display = 'none';
+      subtitle.innerText = '✨ Amanhã sua sorte pode mudar!';
+      dice.classList.remove('animate');
+      resultEl.innerHTML = `
+        <div class="result-card">
+          <h3>${data.today.tag} — ${data.today.label} (${data.today.dateStr})</h3>
+          <div>Chance de vitória: <span class="highlight">${data.today.chance}%</span></div>
+          <div class="comment">${data.today.comment}</div>
+        </div>
+        <div class="result-card">
+          <h3>${data.tomorrow.tag} — ${data.tomorrow.label} (${data.tomorrow.dateStr})</h3>
+          <div>Chance de vitória: <span class="highlight">${data.tomorrow.chance}%</span></div>
+          <div class="comment">${data.tomorrow.comment}</div>
+        </div>
+        <div class="promo-code">💰 Use <strong>BETSORTE</strong> e ganhe +500% AGORA</div>
+        <div class="buttons">
+          <a href="#" class="cta-button">Ativar bônus e começar</a>
+          <button type="button" onclick="sharePage()" class="share-button">Salvar e compartilhar</button>
+        </div>
+      `;
+      const sub1 = new URLSearchParams(location.search).get('sub1') || '';
+      document.querySelector('.cta-button').href = `https://1wcjlr.com/v3/landing-page/casino?p=yye6&sub1=${sub1}`;
+    }
+    function startReveal() {
+      cards.innerHTML = '';
+      cards.style.display = 'none';
+      hintEl.innerText = '';
+      subtitle.innerText = '';
+      loader.style.display = 'block';
+      dice.classList.add('animate');
+      setTimeout(showResult, 2500);
+    }
+    function showHint(text) {
+      hintEl.innerText = text;
+    }
+    function sharePage() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'LuckyBot',
+          text: 'Confira suas chances de vitória com LuckyBot 🎲',
+          url: window.location.href
+        }).catch((err) => {
+          console.error('Erro ao compartilhar:', err);
+        });
+      } else {
+        alert('Seu navegador não suporta compartilhamento automático.');
+      }
+    }
+  </script>
+</body>
+</html>
