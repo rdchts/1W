@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LuckyBot — Випробуй удачу</title>
+  <title>LuckyBot</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍀</text></svg>">
   <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Rubik:wght@400;700&display=swap" rel="stylesheet">
   <style>
@@ -168,43 +168,45 @@
 </head>
 <body>
   <h1><span id="dice-icon">🎲</span> LuckyBot</h1>
-  <h2 id="subtitle">Щоб перевірити свою удачу, обери колір однієї з карт нижче:</h2>
+  <h2 id="subtitle">Para testar sua sorte, escolha a cor de uma das cartas abaixo:</h2>
 
   <div class="cards" id="cards-container">
     <div class="card-wrapper">
-      <div class="card-label">Синя</div>
-      <button class="card-btn blue" onmouseenter="showHint('Точно ця?')" onclick="startReveal()"></button>
+      <div class="card-label">Azul</div>
+      <button class="card-btn blue" onmouseenter="showHint('Tem certeza dessa?')" onclick="startReveal()"></button>
     </div>
     <div class="card-wrapper">
-      <div class="card-label">Червона</div>
-      <button class="card-btn red" onmouseenter="showHint('А якщо не вона?')" onclick="startReveal()"></button>
+      <div class="card-label">Vermelha</div>
+      <button class="card-btn red" onmouseenter="showHint('E se não for essa?')" onclick="startReveal()"></button>
     </div>
     <div class="card-wrapper">
-      <div class="card-label">Зелена</div>
-      <button class="card-btn green" onmouseenter="showHint('Може ця принесе удачу?')" onclick="startReveal()"></button>
+      <div class="card-label">Verde</div>
+      <button class="card-btn green" onmouseenter="showHint('Talvez essa traga sorte?')" onclick="startReveal()"></button>
     </div>
   </div>
+
   <div class="card-hint" id="card-hint"></div>
-  <div id="loader" class="loading" style="display: none;"><span id="dice-loader">🔮</span> Аналізую шанси на виграш...</div>
+  <div id="loader" class="loading" style="display: none;"><span id="dice-loader">🔮</span> Analisando suas chances de vitória...</div>
   <div class="result" id="result"></div>
+
   <div style="font-size: 0.0001px; color: transparent; line-height: 0;">
-    LuckyBot — цей сайт створено виключно для розважальних цілей. Шанси на виграш симулюються і не є реальними. Інформація не є порадою щодо ставок або фінансових дій.
+    LuckyBot — este site é apenas para fins de entretenimento. As chances de vitória são simuladas e não representam dados reais. As informações não são conselhos sobre apostas ou finanças.
   </div>
-  
-    <script>
-    const days = ['Неділя', 'Понеділок', 'Вівторок', 'Середа', 'Четвер', 'П’ятниця', 'Субота'];
-    const months = ['січня', 'лютого', 'березня', 'квітня', 'травня', 'червня', 'липня', 'серпня', 'вересня', 'жовтня', 'листопада', 'грудня'];
+
+  <script>
+    const days = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+    const months = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
 
     const todayComments = {
-      high: ['Ідеальний день для великої гри','Зроби 10–15 спінів без паузи','Гарна серія — час ризикувати','Грай впевнено, шанси максимальні'],
-      mid: ['Почни з 7–10 обертів сьогодні','Гарний шанс для мінімального депозиту','Варто грати новий слот','Шанс високий, не барись'],
-      low: ['Почни з кількох спінів для розігріву','Є шанси — зроби пробний оберт','Можна грати, але обережно','Перевір удачу на своєму слоті']
+      high: ['Dia perfeito para jogar alto', 'Faça 10–15 giros sem parar', 'Boa sequência — hora de arriscar', 'Jogue com confiança, as chances são máximas'],
+      mid: ['Comece com 7–10 giros hoje', 'Boa chance para um depósito pequeno', 'Vale testar uma slot nova', 'Chance alta, não perca tempo'],
+      low: ['Comece com alguns giros para aquecer', 'Tem chance — tente um giro de teste', 'Pode jogar, mas com cautela', 'Teste sua sorte no seu jogo favorito']
     };
 
     const tomorrowComments = {
-      high: ['Можна ризикнути на 3–5 спінів','Є шанс, але краще грати сьогодні','Краще зробити паузу до завтра','Почни обережно, не поспішай'],
-      mid: ['Шанс невеликий, але іноді щастить','Можна спробувати один оберт','Без великих ставок — тільки тест','Не очікуй великого виграшу'],
-      low: ['Сьогодні краще не ризикувати','Час зробити паузу в грі','День не для ставок, відпочинь','Виграш малоймовірний, зачекай']
+      high: ['Pode arriscar 3–5 giros', 'Tem chance, mas hoje está melhor', 'Melhor dar uma pausa até amanhã', 'Comece com cuidado, sem pressa'],
+      mid: ['Chance pequena, mas às vezes dá sorte', 'Tente apenas um giro', 'Sem apostas grandes — só teste', 'Não espere grandes vitórias'],
+      low: ['Melhor não arriscar hoje', 'Hora de dar um tempo no jogo', 'Dia ruim para apostar — descanse', 'Vitória improvável, espere um pouco']
     };
 
     function pickRandom(arr) {
@@ -231,10 +233,10 @@
 
       return {
         label: days[date.getDay()],
-        dateStr: `${date.getDate()} ${months[date.getMonth()]}`,
+        dateStr: `${date.getDate()} de ${months[date.getMonth()]}`,
         chance,
         comment,
-        tag: offset === 0 ? 'Сьогодні' : 'Завтра'
+        tag: offset === 0 ? 'Hoje' : 'Amanhã'
       };
     }
 
@@ -267,27 +269,27 @@
       if (!saved) saveResult(data);
 
       loader.style.display = 'none';
-      subtitle.innerText = '🎯 Ваші шанси на виграш вже готові!';
+      subtitle.innerText = '🎯 Suas chances já estão prontas!';
       dice.classList.remove('animate');
 
       resultEl.innerHTML = `
         <div class="result-card">
           <h3>${data.today.tag} — ${data.today.label} (${data.today.dateStr})</h3>
-          <div>Ймовірність виграшу: <span class="highlight">${data.today.chance}%</span></div>
+          <div>Chance de vitória: <span class="highlight">${data.today.chance}%</span></div>
           <div class="comment">${data.today.comment}</div>
         </div>
 
         <div class="result-card">
           <h3>${data.tomorrow.tag} — ${data.tomorrow.label} (${data.tomorrow.dateStr})</h3>
-          <div>Ймовірність виграшу: <span class="highlight">${data.tomorrow.chance}%</span></div>
+          <div>Chance de vitória: <span class="highlight">${data.tomorrow.chance}%</span></div>
           <div class="comment">${data.tomorrow.comment}</div>
         </div>
 
-        <div class="promo-code">Промокод: <strong>UA777WIN</strong> — дає <strong>+500%</strong> на перший депозит</div>
+        <div class="promo-code">Código promocional: <strong>UA777WIN</strong> — ganhe <strong>+500%</strong> no primeiro depósito</div>
 
         <div class="buttons">
-          <a href="https://cutt.ly/mrYKoMCf" class="cta-button">🎰 Отримати бонус і грати</a>
-          <a href="https://cutt.ly/2rYKpXeL" class="back-link">Telegram спільнота</a>
+          <a href="https://cutt.ly/mrYKoMCf" class="cta-button">🎰 Receber bônus e jogar</a>
+          <a href="https://cutt.ly/2rYKpXeL" class="back-link">Comunidade no Telegram</a>
         </div>
       `;
     }
