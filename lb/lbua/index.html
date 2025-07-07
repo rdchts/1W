@@ -238,6 +238,15 @@
       };
     }
 
+    document.addEventListener('DOMContentLoaded', () => {
+  const today = new Date().toISOString().slice(0, 10);
+  if (!localStorage.getItem('luckybot_result_' + today)) {
+    Object.keys(localStorage).forEach(key => {
+      if (key.startsWith('luckybot_result_')) localStorage.removeItem(key);
+    });
+  }
+});
+      
     function getSavedResult() {
       const todayKey = new Date().toISOString().slice(0, 10);
       const saved = localStorage.getItem('luckybot_result_' + todayKey);
