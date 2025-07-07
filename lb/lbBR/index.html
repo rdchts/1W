@@ -289,7 +289,7 @@
 
         <div class="buttons">
           <a href="https://cutt.ly/mrYKoMCf" class="cta-button">🎰 Receber bônus e jogar</a>
-          <a href="https://cutt.ly/2rYKpXeL" class="back-link">Comunidade no Telegram</a>
+          <button onclick="sharePage()" class="back-link">📤 Compartilhar</button>
         </div>
       `;
     }
@@ -307,6 +307,19 @@
     function showHint(text) {
       hintEl.innerText = text;
     }
+    function sharePage() {
+  if (navigator.share) {
+    navigator.share({
+      title: 'LuckyBot',
+      text: 'Confira suas chances de vitória com LuckyBot 🎲',
+      url: window.location.href
+    }).catch((err) => {
+      console.error('Erro ao compartilhar:', err);
+    });
+  } else {
+    alert('Seu navegador não suporta compartilhamento automático.');
+  }
+}
   </script>
 </body>
 </html>
