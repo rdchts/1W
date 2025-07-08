@@ -1,1 +1,130 @@
-
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LuckyBot — Проверь удачу</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍀</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Rubik:wght@400;700&display=swap" rel="stylesheet">
+  <style>/* Стили остаются без изменений */</style>
+</head>
+<body>
+  <h1><span id="dice-icon">🎲</span> LuckyBot</h1>
+  <h2 id="subtitle">Выбери карту и узнай свои реальные шансы на выигрыш!</h2>
+  <div class="cards" id="cards-container">
+    <div class="card-wrapper">
+      <div class="card-label">Синяя</div>
+      <button class="card-btn blue" onmouseenter="showHint('Ты уверен?')" onclick="startReveal()"></button>
+    </div>
+    <div class="card-wrapper">
+      <div class="card-label">Красная</div>
+      <button class="card-btn red" onmouseenter="showHint('А если не она?')" onclick="startReveal()"></button>
+    </div>
+    <div class="card-wrapper">
+      <div class="card-label">Зелёная</div>
+      <button class="card-btn green" onmouseenter="showHint('Может, повезёт с этой?')" onclick="startReveal()"></button>
+    </div>
+  </div>
+  <div class="card-hint" id="card-hint"></div>
+  <div id="loader" class="loading" style="display: none;"><span id="dice-loader">🔮</span> Анализируем шанс на выигрыш...</div>
+  <div class="result" id="result"></div>
+  <script>
+    const days = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+    const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+    const todayComments = {
+      high: ['Отличный день, чтобы рискнуть!', 'Сделай 10–15 спинов без пауз — сейчас твой момент', 'Хорошая серия — можно играть смело', 'Максимальные шансы, не упусти шанс'],
+      mid: ['Начни с 7–10 вращений сегодня', 'Неплохой день для небольшого депозита', 'Можно попробовать новый слот', 'Шанс хороший — действуй!'],
+      low: ['Пару спинов для разогрева — нормально', 'Есть шанс — попробуй!', 'Играй аккуратно, но попробовать стоит', 'Проверь удачу на любимом автомате']
+    };
+    const tomorrowComments = {
+      high: ['Можно рискнуть 3–5 спинов', 'Есть шанс, но сегодня лучше', 'Лучше сделать паузу до завтра', 'Начни осторожно — не торопись'],
+      mid: ['Шанс небольшой, но иногда везёт', 'Можно попробовать 1–2 вращения', 'Только тест — без ставок', 'Большого выигрыша не жди'],
+      low: ['Сегодня лучше не играть', 'Отдохни от ставок', 'Не лучший день — сделай паузу', 'Выигрыш маловероятен — подожди']
+    };
+    function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+    function generateDay(offset) {
+      const date = new Date();
+      date.setDate(date.getDate() + offset);
+      const min = offset === 0 ? 60 : 3;
+      const max = offset === 0 ? 100 : 40;
+      const chance = Math.floor(Math.random() * (max - min + 1)) + min;
+      let comment;
+      if (offset === 0) {
+        comment = chance >= 85 ? pickRandom(todayComments.high)
+                  : chance >= 70 ? pickRandom(todayComments.mid)
+                  : pickRandom(todayComments.low);
+      } else {
+        comment = chance >= 26 ? pickRandom(tomorrowComments.high)
+                  : chance >= 11 ? pickRandom(tomorrowComments.mid)
+                  : pickRandom(tomorrowComments.low);
+      }
+      return {
+        label: days[date.getDay()],
+        dateStr: `${date.getDate()} ${months[date.getMonth()]}`,
+        chance,
+        comment,
+        tag: offset === 0 ? 'Сегодня' : 'Завтра'
+      };
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      const today = new Date().toISOString().slice(0, 10);
+      if (!localStorage.getItem('luckybot_result_' + today)) {
+        Object.keys(localStorage).forEach(key => { if (key.startsWith('luckybot_result_')) localStorage.removeItem(key); });
+      }
+    });
+    function getSavedResult() {
+      const todayKey = new Date().toISOString().slice(0, 10);
+      const saved = localStorage.getItem('luckybot_result_' + todayKey);
+      return saved ? JSON.parse(saved) : null;
+    }
+    function saveResult(data) {
+      const todayKey = new Date().toISOString().slice(0, 10);
+      localStorage.setItem('luckybot_result_' + todayKey, JSON.stringify(data));
+    }
+    const resultEl = document.getElementById('result');
+    const cards = document.getElementById('cards-container');
+    const loader = document.getElementById('loader');
+    const subtitle = document.getElementById('subtitle');
+    const hintEl = document.getElementById('card-hint');
+    const dice = document.getElementById('dice-icon');
+    function showResult() {
+      const saved = getSavedResult();
+      const data = saved || { today: generateDay(0), tomorrow: generateDay(1) };
+      if (!saved) saveResult(data);
+      loader.style.display = 'none';
+      subtitle.innerText = '✨ Завтра удача может быть другой!';
+      dice.classList.remove('animate');
+      resultEl.innerHTML = `
+        <div class="result-card">
+          <h3>${data.today.tag} — ${data.today.label} (${data.today.dateStr})</h3>
+          <div>Шанс на выигрыш: <span class="highlight">${data.today.chance}%</span></div>
+          <div class="comment">${data.today.comment}</div>
+        </div>
+        <div class="result-card">
+          <h3>${data.tomorrow.tag} — ${data.tomorrow.label} (${data.tomorrow.dateStr})</h3>
+          <div>Шанс на выигрыш: <span class="highlight">${data.tomorrow.chance}%</span></div>
+          <div class="comment">${data.tomorrow.comment}</div>
+        </div>
+        <div class="promo-code">Промокод: <strong>UA777WIN</strong> — даёт <strong>+500%</strong> на первый депозит</div>
+        <div class="buttons">
+          <a href="#" class="cta-button">🎰 Получить бонус и начать игру</a>
+          <a href="https://cutt.ly/2rYKpXeL" class="back-link">Наш Telegram-канал</a>
+        </div>
+      `;
+      const sub1 = new URLSearchParams(location.search).get('sub1') || 'direct';
+      document.querySelector('.cta-button').href =
+        `https://1wcjlr.com/v3/landing-page/casino?p=yye6&sub1=${sub1}&reg_promo=UA777WIN`;
+    }
+    function startReveal() {
+      cards.innerHTML = '';
+      cards.style.display = 'none';
+      hintEl.innerText = '';
+      subtitle.innerText = '';
+      loader.style.display = 'block';
+      dice.classList.add('animate');
+      setTimeout(showResult, 2500);
+    }
+    function showHint(text) { hintEl.innerText = text; }
+  </script>
+</body>
+</html>
