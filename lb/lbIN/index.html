@@ -61,7 +61,17 @@
   <div class="card-hint" id="card-hint"></div>
   <div id="loader" class="loading" style="display: none;"><span id="dice-loader">🔮</span> आपके जीतने की संभावनाएं जांच रहे हैं...</div>
   <div class="result" id="result"></div>
+
   <script>
+    // --- 1. Сохраняем clickId при заходе ---
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const clickId = params.get('sub1');
+      if (clickId) {
+        sessionStorage.setItem('clickId', clickId);
+      }
+    })();
+
     const days = ['रविवार','सोमवार','मंगलवार','बुधवार','गुरुवार','शुक्रवार','शनिवार'];
     const months = ['जनवरी','फरवरी','मार्च','अप्रैल','मई','जून','जुलाई','अगस्त','सितंबर','अक्टूबर','नवंबर','दिसंबर'];
     const todayComments = {
@@ -70,11 +80,13 @@
       low: ['कुछ स्पिन से गरमाहट लें','संभावना है — एक ट्राई करें','खेल सकते हैं, पर सावधानी बरतें','धीरे-धीरे अपनी किस्मत आज़माएं']
     };
     const tomorrowComments = {
-      high: ['कल 3–5 स्पिन का जोखिम लें','अच्छे मौके, पर आज बहेतर था','कल तक आराम करें','बाद में ध्यान से शुरू करें'],
+      high: ['कल 3–5 स्पिन का जोखिम लें','अच्छे मौके, पर आज बेहतर था','कल तक आराम करें','बाद में ध्यान से शुरू करें'],
       mid: ['कम मौका, पर किस्मत भी चमक सकती है','सिर्फ एक स्पिन आज़माएं','बड़े दांव नहीं — सिर्फ टेस्ट','बड़े जीत की उम्मीद न रखें'],
       low: ['कल बेस्ट न करें','आराम करने का समय','कम किस्मत वाला दिन','खेलने से पहले प्रतीक्षा करें']
     };
+
     function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
     function generateDay(offset) {
       const date = new Date();
       date.setDate(date.getDate() + offset);
@@ -99,6 +111,7 @@
         tag: offset === 0 ? 'आज' : 'कल'
       };
     }
+
     document.addEventListener('DOMContentLoaded', () => {
       const todayKey = new Date().toISOString().slice(0, 10);
       if (!localStorage.getItem('luckybot_result_' + todayKey)) {
@@ -107,6 +120,7 @@
         });
       }
     });
+
     function getSavedResult() {
       const key = 'luckybot_result_' + new Date().toISOString().slice(0, 10);
       const saved = localStorage.getItem(key);
@@ -116,16 +130,23 @@
       const key = 'luckybot_result_' + new Date().toISOString().slice(0, 10);
       localStorage.setItem(key, JSON.stringify(data));
     }
-    const resultEl = document.getElementById('result'), cards = document.getElementById('cards-container'),
-          loader = document.getElementById('loader'), subtitle = document.getElementById('subtitle'),
-          hintEl = document.getElementById('card-hint'), dice = document.getElementById('dice-icon');
+
+    const resultEl = document.getElementById('result'),
+          cards = document.getElementById('cards-container'),
+          loader = document.getElementById('loader'),
+          subtitle = document.getElementById('subtitle'),
+          hintEl = document.getElementById('card-hint'),
+          dice = document.getElementById('dice-icon');
+
     function showResult() {
       const saved = getSavedResult();
       const data = saved || { today: generateDay(0), tomorrow: generateDay(1) };
       if (!saved) saveResult(data);
+
       loader.style.display = 'none';
       subtitle.innerText = 'अपने डिपॉज़िट पर पाएं 5×, इनाम आपका!';
       dice.classList.remove('animate');
+
       resultEl.innerHTML = `
         <div class="result-card">
           <h3>${data.today.tag} — ${data.today.label} (${data.today.dateStr})</h3>
@@ -139,13 +160,17 @@
         </div>
         <div class="promo-code">💰 इस्तेमाल करें <strong>G777KO</strong> और पाएं <strong>+500%</strong> अभी</div>
         <div class="buttons">
-          <a href="https://lkbz.pro/7e28" class="cta-button">🎰 जैकपॉट मारो</a>
+          <a href="#" class="cta-button">🎰 जैकपॉट मारो</a>
           <button onclick="sharePage()" class="share-button">सेव और शेयर करें</button>
         </div>
       `;
-      const sub1 = new URLSearchParams(location.search).get('sub1') || 'direct';
-      document.querySelector('.cta-button').href = `https://lkbz.pro/7e28`;
+
+      // --- 2. Подставляем clickId в ссылку кнопки ---
+      const cid = sessionStorage.getItem('clickId') || 'direct';
+      document.querySelector('.cta-button').href =
+        `https://lkbz.pro/7e28?sub1=${encodeURIComponent(cid)}`;
     }
+
     function startReveal() {
       cards.innerHTML = '';
       cards.style.display = 'none';
@@ -155,7 +180,9 @@
       dice.classList.add('animate');
       setTimeout(showResult, 800);
     }
+
     function showHint(text) { hintEl.innerText = text; }
+
     function sharePage() {
       if (navigator.share) {
         navigator.share({ title: 'LuckyBot', text: 'अपने जीतने की संभावनाएं देखें 🎲', url: window.location.href })
