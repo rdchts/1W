@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="hi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,30 +11,28 @@
     h1 { font-family: 'Luckiest Guy', cursive; font-size: 40px; color: #ffc107; margin-bottom: 10px; display: inline-block; }
     #dice-icon.animate { display: inline-block; animation: bounce 0.4s infinite; }
     @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-    h2 { font-size: 24px; margin-top: 10px; max-width: 500px; margin-left: auto; margin-right: auto; }
-    .cards { margin: 30px auto 10px; display: flex; justify-content: center; gap: 30px; flex-wrap: nowrap; max-width: 100%; flex-direction: row; }
+    h2 { font-size: 24px; margin-top: 10px; max-width: 500px; margin: 0 auto; }
+    .cards { margin: 30px auto 10px; display: flex; justify-content: center; gap: 30px; flex-wrap: nowrap; max-width: 100%; }
     .card-wrapper { display: flex; flex-direction: column; align-items: center; }
     .card-label { font-weight: bold; margin-bottom: 8px; font-size: 16px; }
-    .card-btn { border: none; border-radius: 10px; cursor: pointer; width: 120px; height: 180px; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.1); background: repeating-linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.04) 10px, transparent 10px, transparent 20px); position: relative; transition: transform 0.2s, box-shadow 0.3s; }
+    .card-btn { border: none; border-radius: 10px; cursor: pointer; width: 120px; height: 180px; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.1); background: repeating-linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.04) 10px, transparent 10px, transparent 20px); transition: transform 0.2s, box-shadow 0.3s; }
     .card-btn:hover { transform: scale(1.07); }
     .blue { background-color: #1a237e; } .blue:hover { box-shadow: 0 0 20px #536dfe; }
     .red { background-color: #b71c1c; } .red:hover { box-shadow: 0 0 20px #ff5252; }
     .green { background-color: #1b5e20; } .green:hover { box-shadow: 0 0 20px #69f0ae; }
-    .card-hint { font-size: 14px; color: #ccc; margin-top: 20px; min-height: 20px; height: 20px; }
+    .card-hint { font-size: 14px; color: #ccc; margin-top: 20px; min-height: 20px; }
     .loading { font-size: 22px; margin-top: 40px; }
-    .result { margin-top: 0px; font-size: 24px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
-    .result-card { background: #1a1f26; border: 1px solid #333; border-radius: 16px; padding: 15px 2.5vw; max-width: 400px; width: 100%; box-shadow: 0 0 20px rgba(255, 255, 255, 0.05); text-align: left; }
+    .result { margin-top: 0; font-size: 24px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+    .result-card { background: #1a1f26; border: 1px solid #333; border-radius: 16px; padding: 15px 2.5vw; max-width: 400px; width: 100%; box-shadow: 0 0 20px rgba(255,255,255,0.05); text-align: left; }
     .result-card h3 { margin: 0 0 10px; font-size: 20px; color: #ffc107; }
     .highlight { font-size: 28px; font-weight: bold; color: #fff; }
     .comment { font-style: italic; color: #ccc; margin-top: 8px; font-size: 16px; }
     .buttons { margin-top: 25px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-    .cta-button { padding: 20px 5vw; font-size: 22px; font-weight: bold; background-color: #ffc107; color: #000; border: none; border-radius: 12px; text-decoration: none; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.5); transition: transform 0.2s, box-shadow 0.2s; width: 100%; max-width: 400px; }
-    .cta-button:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(255, 193, 7, 0.7); }
-    .share-button { padding: 12px 24px; font-size: 16px; color: #fff; background-color: transparent; border: 1px solid #555; border-radius: 8px; cursor: pointer; transition: all 0.2s ease-in-out; }
+    .cta-button { padding: 20px 5vw; font-size: 22px; font-weight: bold; background-color: #ffc107; color: #000; border: none; border-radius: 12px; text-decoration: none; cursor: pointer; box-shadow: 0 4px 15px rgba(255,193,7,0.5); transition: transform 0.2s, box-shadow 0.2s; width: 100%; max-width: 400px; }
+    .cta-button:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(255,193,7,0.7); }
+    .share-button { padding: 12px 24px; font-size: 16px; color: #fff; background: transparent; border: 1px solid #555; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; }
     .share-button:hover { background-color: #222; border-color: #888; color: #ffc107; }
-    .back-link { font-size: 16px; color: #aaa; text-decoration: underline; }
-    .back-link:hover { color: #fff; }
-    .promo-code { font-size: 18px; margin-top: 4px; color: #999; max-width: 400px; margin-left: auto; margin-right: auto; }
+    .promo-code { font-size: 18px; margin-top: 4px; color: #999; max-width: 400px; margin: 0 auto; }
     @media (max-width: 600px) {
       .card-btn { width: 100px; height: 160px; }
       .cards { flex-wrap: wrap; }
@@ -45,40 +43,38 @@
 </head>
 <body>
   <h1><span id="dice-icon">🎲</span> AI LuckyBot</h1>
-  <h2 id="subtitle">Pilih kartu — seseorang sudah menang, sekarang giliranmu!</h2>
+  <h2 id="subtitle">एक कार्ड चुनें — किसी ने जीत लिया, अब आपकी बारी!</h2>
   <div class="cards" id="cards-container">
     <div class="card-wrapper">
-      <div class="card-label">Biru</div>
-      <button class="card-btn blue" onmouseenter="showHint('Yakin dengan ini?')" onclick="startReveal()"></button>
+      <div class="card-label">नीला</div>
+      <button class="card-btn blue" onmouseenter="showHint('क्या आप इसमें सुनिश्चित हैं?')" onclick="startReveal()"></button>
     </div>
     <div class="card-wrapper">
-      <div class="card-label">Merah</div>
-      <button class="card-btn red" onmouseenter="showHint('Bagaimana jika bukan ini?')" onclick="startReveal()"></button>
+      <div class="card-label">लाल</div>
+      <button class="card-btn red" onmouseenter="showHint('अगर यह नहीं है तो?')" onclick="startReveal()"></button>
     </div>
     <div class="card-wrapper">
-      <div class="card-label">Hijau</div>
-      <button class="card-btn green" onmouseenter="showHint('Mungkin ini membawa keberuntungan?')" onclick="startReveal()"></button>
+      <div class="card-label">हरा</div>
+      <button class="card-btn green" onmouseenter="showHint('शायद यह लUCK लाए?')" onclick="startReveal()"></button>
     </div>
   </div>
   <div class="card-hint" id="card-hint"></div>
-  <div id="loader" class="loading" style="display: none;"><span id="dice-loader">🔮</span> Menganalisis peluang kemenangamu...</div>
+  <div id="loader" class="loading" style="display: none;"><span id="dice-loader">🔮</span> आपके जीतने की संभावनाएं जांच रहे हैं...</div>
   <div class="result" id="result"></div>
   <script>
-    const days = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
-    const months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+    const days = ['रविवार','सोमवार','मंगलवार','बुधवार','गुरुवार','शुक्रवार','शनिवार'];
+    const months = ['जनवरी','फरवरी','मार्च','अप्रैल','मई','जून','जुलाई','अगस्त','सितंबर','अक्टूबर','नवंबर','दिसंबर'];
     const todayComments = {
-      high: ['Hari sempurna untuk taruhan besar','Putar 10–15 kali beruntun','Lagi hoki — saatnya berisiko','Main dengan percaya diri, peluang tinggi'],
-      mid: ['Mulai dengan 7–10 putaran hari ini','Peluang bagus untuk taruhan kecil','Layak coba slot baru','Peluang tinggi, jangan lewatkan'],
-      low: ['Mulai dengan beberapa putaran pemanasan','Ada peluang — coba satu putaran','Bisa main, tapi hati-hati','Uji keberuntunganmu perlahan']
+      high: ['बड़ दांव लगाने के लिए उत्तम दिन','10–15 स्पिन लगातार करें','अच्छा स्ट्राइक — रिस्क लेने का समय','विश्वास के साथ खेलें, मौके सर्वोच्च हैं'],
+      mid: ['आज 7–10 स्पिन से शुरुआत करें','छोटे दांव के लिए अच्छा मौका','नए स्लॉट को आज़माना चाहिए','उच्च अवसर, मिस न करें'],
+      low: ['कुछ स्पिन से गरमाहट लें','संभावना है — एक ट्राई करें','खेल सकते हैं, पर सावधानी बरतें','धीरे-धीरे अपनी किस्मत आज़माएं']
     };
     const tomorrowComments = {
-      high: ['Berani taruhan 3–5 putaran besok','Peluang bagus, tapi hari ini lebih baik','Lebih baik istirahat sampai besok','Mulai dengan hati-hati nanti'],
-      mid: ['Peluang kecil, tapi bisa beruntung','Coba hanya satu putaran','Jangan taruhan besar — hanya tes','Jangan berharap kemenangan besar'],
-      low: ['Lebih baik lewatkan besok','Saatnya istirahat sejenak','Hari kurang beruntung','Tunggu sedikit sebelum bermain']
+      high: ['कल 3–5 स्पिन का जोखिम लें','अच्छे मौके, पर आज बहेतर था','कल तक आराम करें','बाद में ध्यान से शुरू करें'],
+      mid: ['कम मौका, पर किस्मत भी चमक सकती है','सिर्फ एक स्पिन आज़माएं','बड़े दांव नहीं — सिर्फ टेस्ट','बड़े जीत की उम्मीद न रखें'],
+      low: ['कल बेस्ट न करें','आराम करने का समय','कम किस्मत वाला दिन','खेलने से पहले प्रतीक्षा करें']
     };
-    function pickRandom(arr) {
-      return arr[Math.floor(Math.random() * arr.length)];
-    }
+    function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
     function generateDay(offset) {
       const date = new Date();
       date.setDate(date.getDate() + offset);
@@ -100,7 +96,7 @@
         dateStr: `${date.getDate()} ${months[date.getMonth()]}`,
         chance,
         comment,
-        tag: offset === 0 ? 'Hari Ini' : 'Besok'
+        tag: offset === 0 ? 'आज' : 'कल'
       };
     }
     document.addEventListener('DOMContentLoaded', () => {
@@ -112,47 +108,43 @@
       }
     });
     function getSavedResult() {
-      const todayKey = new Date().toISOString().slice(0, 10);
-      const saved = localStorage.getItem('luckybot_result_' + todayKey);
+      const key = 'luckybot_result_' + new Date().toISOString().slice(0, 10);
+      const saved = localStorage.getItem(key);
       return saved ? JSON.parse(saved) : null;
     }
     function saveResult(data) {
-      const todayKey = new Date().toISOString().slice(0, 10);
-      localStorage.setItem('luckybot_result_' + todayKey, JSON.stringify(data));
+      const key = 'luckybot_result_' + new Date().toISOString().slice(0, 10);
+      localStorage.setItem(key, JSON.stringify(data));
     }
-    const resultEl = document.getElementById('result');
-    const cards = document.getElementById('cards-container');
-    const loader = document.getElementById('loader');
-    const subtitle = document.getElementById('subtitle');
-    const hintEl = document.getElementById('card-hint');
-    const dice = document.getElementById('dice-icon');
+    const resultEl = document.getElementById('result'), cards = document.getElementById('cards-container'),
+          loader = document.getElementById('loader'), subtitle = document.getElementById('subtitle'),
+          hintEl = document.getElementById('card-hint'), dice = document.getElementById('dice-icon');
     function showResult() {
       const saved = getSavedResult();
       const data = saved || { today: generateDay(0), tomorrow: generateDay(1) };
       if (!saved) saveResult(data);
       loader.style.display = 'none';
-      subtitle.innerText = 'Dapatkan 5× depositmu, hadiahnya milikmu!';
+      subtitle.innerText = 'अपने डिपॉज़िट पर पाएं 5×, इनाम आपका!';
       dice.classList.remove('animate');
       resultEl.innerHTML = `
         <div class="result-card">
           <h3>${data.today.tag} — ${data.today.label} (${data.today.dateStr})</h3>
-          <div>⚡️ Sekarang: <span class="highlight">${data.today.chance}%</span></div>
+          <div>⚡️ अभी: <span class="highlight">${data.today.chance}%</span></div>
           <div class="comment">${data.today.comment}</div>
         </div>
         <div class="result-card">
           <h3>${data.tomorrow.tag} — ${data.tomorrow.label} (${data.tomorrow.dateStr})</h3>
-          <div>⏳ Berikutnya: <span class="highlight">${data.tomorrow.chance}%</span></div>
+          <div>⏳ अगले लिए: <span class="highlight">${data.tomorrow.chance}%</span></div>
           <div class="comment">${data.tomorrow.comment}</div>
         </div>
-        <div class="promo-code">💰 Gunakan <strong>G777KO</strong> dan dapatkan <strong>+500%</strong> SEKARANG</div>
+        <div class="promo-code">💰 इस्तेमाल करें <strong>G777KO</strong> और पाएं <strong>+500%</strong> अभी</div>
         <div class="buttons">
-          <a href="#" class="cta-button">🎰 RAIH JACKPOT</a>
-          <button type="button" onclick="sharePage()" class="share-button">Simpan dan bagikan</button>
+          <a href="#" class="cta-button">🎰 जैकपॉट मारो</a>
+          <button onclick="sharePage()" class="share-button">सेव और शेयर करें</button>
         </div>
       `;
       const sub1 = new URLSearchParams(location.search).get('sub1') || 'direct';
-      document.querySelector('.cta-button').href =
-        `https://1wcjlr.com/v3/landing-page/casino?p=yye6&sub1=${sub1}`;
+      document.querySelector('.cta-button').href = `https://1wcjlr.com/v3/landing-page/casino?p=yye6&sub1=${sub1}`;
     }
     function startReveal() {
       cards.innerHTML = '';
@@ -163,11 +155,15 @@
       dice.classList.add('animate');
       setTimeout(showResult, 800);
     }
-    function showHint(text) {
-      hintEl.innerText = text;
-    }
+    function showHint(text) { hintEl.innerText = text; }
     function sharePage() {
       if (navigator.share) {
-        navigator.share({
-          title: 'LuckyBot',
-          text: 'Cek peluang kemenang
+        navigator.share({ title: 'LuckyBot', text: 'अपने जीतने की संभावनाएं देखें 🎲', url: window.location.href })
+          .catch(err => console.error('Error sharing:', err));
+      } else {
+        alert('आपका ब्राउज़र ऑटो-शेयर को सपोर्ट नहीं करता।');
+      }
+    }
+  </script>
+</body>
+</html>
