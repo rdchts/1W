@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,49 +40,41 @@
       .cards { flex-wrap: wrap; }
       .cta-button { width: 100%; }
     }
-    .promo-code strong {
-  color: #ffc107;
-  background-color: #333;
-  padding: 3px 8px;
-  border-radius: 6px;
-  font-size: 20px;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
+    .promo-code strong { color: #ffc107; background-color: #333; padding: 3px 8px; border-radius: 6px; font-size: 20px; font-weight: bold; letter-spacing: 1px; }
   </style>
 </head>
 <body>
   <h1><span id="dice-icon">🎲</span> AI LuckyBot</h1>
-  <h2 id="subtitle">Escolha uma carta — alguém já ganhou, agora é a sua vez!</h2>
+  <h2 id="subtitle">Pick a card — someone has won, now it's your turn!</h2>
   <div class="cards" id="cards-container">
     <div class="card-wrapper">
-      <div class="card-label">Azul</div>
-      <button class="card-btn blue" onmouseenter="showHint('Tem certeza dessa?')" onclick="startReveal()"></button>
+      <div class="card-label">Blue</div>
+      <button class="card-btn blue" onmouseenter="showHint('Are you sure about this one?')" onclick="startReveal()"></button>
     </div>
     <div class="card-wrapper">
-      <div class="card-label">Vermelha</div>
-      <button class="card-btn red" onmouseenter="showHint('E se não for essa?')" onclick="startReveal()"></button>
+      <div class="card-label">Red</div>
+      <button class="card-btn red" onmouseenter="showHint('What if it\'s not this one?')" onclick="startReveal()"></button>
     </div>
     <div class="card-wrapper">
-      <div class="card-label">Verde</div>
-      <button class="card-btn green" onmouseenter="showHint('Talvez essa traga sorte?')" onclick="startReveal()"></button>
+      <div class="card-label">Green</div>
+      <button class="card-btn green" onmouseenter="showHint('Maybe this one will bring luck?')" onclick="startReveal()"></button>
     </div>
   </div>
   <div class="card-hint" id="card-hint"></div>
-  <div id="loader" class="loading" style="display: none;"><span id="dice-loader">🔮</span> Analisando suas chances de vitória...</div>
+  <div id="loader" class="loading" style="display: none;"><span id="dice-loader">🔮</span> Analyzing your chances of winning...</div>
   <div class="result" id="result"></div>
   <script>
-    const days = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
-    const months = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     const todayComments = {
-      high: ['Dia perfeito para jogar alto', 'Faça 10–15 giros sem parar', 'Boa sequência — hora de arriscar', 'Jogue com confiança, as chances são máximas'],
-      mid: ['Comece com 7–10 giros hoje', 'Boa chance para um depósito pequeno', 'Vale testar uma slot nova', 'Chance alta, não perca tempo'],
-      low: ['Comece com alguns giros para aquecer', 'Tem chance — tente um giro de teste', 'Pode jogar, mas com cautela', 'Teste sua sorte no seu jogo favorito']
+      high: ['Perfect day to go big','Play 10–15 spins straight','Good streak — time to risk','Play with confidence, odds are high'],
+      mid: ['Start with 7–10 spins today','Good chance for a small bet','Worth testing a new slot','High chance, don’t miss out'],
+      low: ['Warm up with a few spins','There’s a chance — try one','You can play, but be cautious','Test your luck gently']
     };
     const tomorrowComments = {
-      high: ['Pode arriscar 3–5 giros', 'Tem chance, mas hoje está melhor', 'Melhor dar uma pausa até amanhã', 'Comece com cuidado, sem pressa'],
-      mid: ['Chance pequena, mas às vezes dá sorte', 'Tente apenas um giro', 'Sem apostas grandes — só teste', 'Não espere grandes vitórias'],
-      low: ['Melhor não arriscar hoje', 'Hora de dar um tempo no jogo', 'Dia ruim para apostar — descanse', 'Vitória improvável, espere um pouco']
+      high: ['Risk 3–5 spins tomorrow','Good odds, but today was better','Better rest until tomorrow','Start carefully then'],
+      mid: ['Low chance, but you might hit','Try just one spin','No big bets — just test','Don’t expect big wins'],
+      low: ['Better skip tomorrow','Time to take a break','Unlucky day ahead','Wait a bit before playing']
     };
     function pickRandom(arr) {
       return arr[Math.floor(Math.random() * arr.length)];
@@ -95,25 +87,25 @@
       const chance = Math.floor(Math.random() * (max - min + 1)) + min;
       let comment;
       if (offset === 0) {
-        if (chance >= 85) comment = pickRandom(todayComments.high);
-        else if (chance >= 70) comment = pickRandom(todayComments.mid);
-        else comment = pickRandom(todayComments.low);
+        comment = chance >= 85 ? pickRandom(todayComments.high)
+          : chance >= 70 ? pickRandom(todayComments.mid)
+          : pickRandom(todayComments.low);
       } else {
-        if (chance >= 26) comment = pickRandom(tomorrowComments.high);
-        else if (chance >= 11) comment = pickRandom(tomorrowComments.mid);
-        else comment = pickRandom(tomorrowComments.low);
+        comment = chance >= 26 ? pickRandom(tomorrowComments.high)
+          : chance >= 11 ? pickRandom(tomorrowComments.mid)
+          : pickRandom(tomorrowComments.low);
       }
       return {
         label: days[date.getDay()],
-        dateStr: `${date.getDate()} de ${months[date.getMonth()]}`,
+        dateStr: `${date.getDate()} ${months[date.getMonth()]}`,
         chance,
         comment,
-        tag: offset === 0 ? 'Hoje' : 'Amanhã'
+        tag: offset === 0 ? 'Today' : 'Tomorrow'
       };
     }
     document.addEventListener('DOMContentLoaded', () => {
-      const today = new Date().toISOString().slice(0, 10);
-      if (!localStorage.getItem('luckybot_result_' + today)) {
+      const todayKey = new Date().toISOString().slice(0, 10);
+      if (!localStorage.getItem('luckybot_result_' + todayKey)) {
         Object.keys(localStorage).forEach(key => {
           if (key.startsWith('luckybot_result_')) localStorage.removeItem(key);
         });
@@ -136,34 +128,31 @@
     const dice = document.getElementById('dice-icon');
     function showResult() {
       const saved = getSavedResult();
-      const data = saved || {
-        today: generateDay(0),
-        tomorrow: generateDay(1)
-      };
+      const data = saved || { today: generateDay(0), tomorrow: generateDay(1) };
       if (!saved) saveResult(data);
       loader.style.display = 'none';
-      subtitle.innerText = 'Pegue x5 no depósito o prêmio é seu!';
+      subtitle.innerText = 'Grab 5× on your deposit, the prize is yours!';
       dice.classList.remove('animate');
       resultEl.innerHTML = `
         <div class="result-card">
           <h3>${data.today.tag} — ${data.today.label} (${data.today.dateStr})</h3>
-          <div>⚡️ Agora mesmo: <span class="highlight">${data.today.chance}%</span></div>
+          <div>⚡️ Right now: <span class="highlight">${data.today.chance}%</span></div>
           <div class="comment">${data.today.comment}</div>
         </div>
         <div class="result-card">
           <h3>${data.tomorrow.tag} — ${data.tomorrow.label} (${data.tomorrow.dateStr})</h3>
-          <div>⏳ Fica para a próxima: <span class="highlight">${data.tomorrow.chance}%</span></div>
+          <div>⏳ Coming up: <span class="highlight">${data.tomorrow.chance}%</span></div>
           <div class="comment">${data.tomorrow.comment}</div>
         </div>
-        <div class="promo-code">💰 Use <strong>BETSORTE</strong> e ganhe <strong>+500%</strong> AGORA</div>
+        <div class="promo-code">💰 Use <strong>BETSORTE</strong> and get <strong>+500%</strong> NOW</div>
         <div class="buttons">
-          <a href="#" class="cta-button">🎰 GANHAR O JACKPOT</a>
-          <button type="button" onclick="sharePage()" class="share-button">Salvar e compartilhar</button>
+          <a href="#" class="cta-button">🎰 HIT THE JACKPOT</a>
+          <button type="button" onclick="sharePage()" class="share-button">Save and share</button>
         </div>
       `;
       const sub1 = new URLSearchParams(location.search).get('sub1') || 'direct';
-document.querySelector('.cta-button').href =
-  `https://1wcjlr.com/v3/landing-page/casino?p=yye6&sub1=${sub1}`;
+      document.querySelector('.cta-button').href =
+        `https://1wcjlr.com/v3/landing-page/casino?p=yye6&sub1=${sub1}`;
     }
     function startReveal() {
       cards.innerHTML = '';
@@ -181,13 +170,13 @@ document.querySelector('.cta-button').href =
       if (navigator.share) {
         navigator.share({
           title: 'LuckyBot',
-          text: 'Confira suas chances de vitória com LuckyBot 🎲',
+          text: 'Check your chances to win with LuckyBot 🎲',
           url: window.location.href
         }).catch((err) => {
-          console.error('Erro ao compartilhar:', err);
+          console.error('Error sharing:', err);
         });
       } else {
-        alert('Seu navegador não suporta compartilhamento automático.');
+        alert('Your browser doesn\'t support automatic sharing.');
       }
     }
   </script>
