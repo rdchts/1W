@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LuckyBot — Випробуй удачу</title>
+  <title>AI LuckyBot — Випробуй удачу</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍀</text></svg>">
   <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Rubik:wght@400;700&display=swap" rel="stylesheet">
   <style>
@@ -81,8 +81,8 @@
   </style>
 </head>
 <body>
-  <h1><span id="dice-icon">🎲</span> LuckyBot</h1>
-  <h2 id="subtitle">Оберіть карту та дізнайтеся свої реальні шанси на виграш!</h2>
+  <h1><span id="dice-icon">🎲</span> AI LuckyBot</h1>
+  <h2 id="subtitle">Обери карту — хтось вже виграв, а твій шанс ще попереду!</h2>
   <div class="cards" id="cards-container">
     <div class="card-wrapper">
       <div class="card-label">Синя</div>
@@ -109,7 +109,7 @@
       low: ['Почни з кількох спінів для розігріву','Є шанси — зроби пробний оберт','Можна грати, але обережно','Перевір удачу на своєму слоті']
     };
     const tomorrowComments = {
-      high: ['Можна ризикнути на 3–5 спінів','Є шанс, але краще грати сьогодні','Краще зробити паузу до завтра','Почни обережно, не поспішай'],
+      high: ['Можна ризикнути на 3–5 спінів','Краще грати сьогодні','Краще зробити зараз','Почни обережно, не поспішай'],
       mid: ['Шанс невеликий, але іноді щастить','Можна спробувати один оберт','Без великих ставок — тільки тест','Не очікуй великого виграшу'],
       low: ['Сьогодні краще не ризикувати','Час зробити паузу в грі','День не для ставок, відпочинь','Виграш малоймовірний, зачекай']
     };
@@ -164,22 +164,22 @@
       const data = saved || { today: generateDay(0), tomorrow: generateDay(1) };
       if (!saved) saveResult(data);
       loader.style.display = 'none';
-      subtitle.innerText = '✨ Завтра ваша удача може змінитися!';
+      subtitle.innerText = 'Хапай x5 до депозиту виграш твій!';
       dice.classList.remove('animate');
       resultEl.innerHTML = `
         <div class="result-card">
           <h3>${data.today.tag} — ${data.today.label} (${data.today.dateStr})</h3>
-          <div>Ймовірність виграшу: <span class="highlight">${data.today.chance}%</span></div>
+          <div>⚡️ Прямо зараз: <span class="highlight">${data.today.chance}%</span></div>
           <div class="comment">${data.today.comment}</div>
         </div>
         <div class="result-card">
           <h3>${data.tomorrow.tag} — ${data.tomorrow.label} (${data.tomorrow.dateStr})</h3>
-          <div>Ймовірність виграшу: <span class="highlight">${data.tomorrow.chance}%</span></div>
+          <div>⏳ Іншим разом: <span class="highlight">${data.tomorrow.chance}%</span></div>
           <div class="comment">${data.tomorrow.comment}</div>
         </div>
         <div class="promo-code">Промокод: <strong>UA777WIN</strong> — дає <strong>+500%</strong> на перший депозит</div>
         <div class="buttons">
-          <a href="#" class="cta-button">🎰 Отримати бонус і грати</a>
+          <a href="#" class="cta-button">🎰 ЗІРВАТИ ДЖЕКПОТ</a>
           <a href="https://cutt.ly/2rYKpXeL" class="tg-link" target="_blank" rel="noopener">
             <span class="tg-icon" aria-hidden="true">
               <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
@@ -193,7 +193,7 @@
       `;
       const sub1 = new URLSearchParams(location.search).get('sub1') || 'direct';
       document.querySelector('.cta-button').href =
-        `https://1wcjlr.com/v3/2672/sweet-bonanza?p=d8ak&sub1=${sub1}`;
+        `https://1wcjlr.com/v3/landing-page/casino?p=yye6&sub1=${sub1}`;
     }
     function startReveal() {
       cards.innerHTML = '';
@@ -202,7 +202,7 @@
       subtitle.innerText = '';
       loader.style.display = 'block';
       dice.classList.add('animate');
-      setTimeout(showResult, 1500);
+      setTimeout(showResult, 1000);
     }
     function showHint(text) { hintEl.innerText = text; }
   </script>
