@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LuckyBot — Проверь удачу</title>
+  <title>AI LuckyBot — Проверь удачу</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍀</text></svg>">
   <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Rubik:wght@400;700&display=swap" rel="stylesheet">
   <style>
@@ -81,8 +81,8 @@
   </style>
 </head>
 <body>
-  <h1><span id="dice-icon">🎲</span> LuckyBot</h1>
-  <h2 id="subtitle">Выбери карту и узнай свои реальные шансы на выигрыш!</h2>
+  <h1><span id="dice-icon">🎲</span> AI LuckyBot</h1>
+  <h2 id="subtitle">Выбери карту — кто-то уже сорвал куш, теперь твоя очередь!</h2>
   <div class="cards" id="cards-container">
     <div class="card-wrapper">
       <div class="card-label">Синяя</div>
@@ -164,22 +164,22 @@
       const data = saved || { today: generateDay(0), tomorrow: generateDay(1) };
       if (!saved) saveResult(data);
       loader.style.display = 'none';
-      subtitle.innerText = '✨ Завтра удача может быть другой!';
+      subtitle.innerText = 'Лови x5 к депозиту выигрыш твой!';
       dice.classList.remove('animate');
       resultEl.innerHTML = `
         <div class="result-card">
           <h3>${data.today.tag} — ${data.today.label} (${data.today.dateStr})</h3>
-          <div>Шанс на выигрыш: <span class="highlight">${data.today.chance}%</span></div>
+          <div>⚡️ Прямо сейчас: <span class="highlight">${data.today.chance}%</span></div>
           <div class="comment">${data.today.comment}</div>
         </div>
         <div class="result-card">
           <h3>${data.tomorrow.tag} — ${data.tomorrow.label} (${data.tomorrow.dateStr})</h3>
-          <div>Шанс на выигрыш: <span class="highlight">${data.tomorrow.chance}%</span></div>
+          <div>⏳ В другой раз: <span class="highlight">${data.tomorrow.chance}%</span></div>
           <div class="comment">${data.tomorrow.comment}</div>
         </div>
         <div class="promo-code">Промокод: <strong>RUBAN</strong> — даёт <strong>+500%</strong> на первый депозит</div>
         <div class="buttons">
-          <a href="#" class="cta-button">🎰 Получить бонус и начать игру</a>
+          <a href="#" class="cta-button">🎰 СОРВАТЬ ДЖЕКПОТ</a>
           <a href="https://cutt.ly/0rUjuf6s" class="tg-link" target="_blank" rel="noopener">
             <span class="tg-icon" aria-hidden="true">
               <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
@@ -193,7 +193,7 @@
       `;
       const sub1 = new URLSearchParams(location.search).get('sub1') || 'direct';
       document.querySelector('.cta-button').href =
-        `https://1wcjlr.com/v3/2672/sweet-bonanza?p=d8ak&sub1=${sub1}`;
+        `https://1wcjlr.com/v3/landing-page/casino?p=yye6&sub1=${sub1}`;
     }
     function startReveal() {
       cards.innerHTML = '';
@@ -202,7 +202,7 @@
       subtitle.innerText = '';
       loader.style.display = 'block';
       dice.classList.add('animate');
-      setTimeout(showResult, 1500);
+      setTimeout(showResult, 1000);
     }
     function showHint(text) { hintEl.innerText = text; }
   </script>
