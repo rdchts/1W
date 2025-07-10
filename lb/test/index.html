@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LuckyBot</title>
+  <title>AI LuckyBot</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍀</text></svg>">
   <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Rubik:wght@400;700&display=swap" rel="stylesheet">
   <style>
@@ -52,8 +52,8 @@
   </style>
 </head>
 <body>
-  <h1><span id="dice-icon">🎲</span> LuckyBot</h1>
-  <h2 id="subtitle">Escolha uma carta e veja sua chance real de ganhar!</h2>
+  <h1><span id="dice-icon">🎲</span> AI LuckyBot</h1>
+  <h2 id="subtitle">Escolha uma carta — alguém já ganhou, agora é a sua vez!</h2>
   <div class="cards" id="cards-container">
     <div class="card-wrapper">
       <div class="card-label">Azul</div>
@@ -142,28 +142,28 @@
       };
       if (!saved) saveResult(data);
       loader.style.display = 'none';
-      subtitle.innerText = '✨ Amanhã sua sorte pode mudar!';
+      subtitle.innerText = 'Pegue x5 no depósito o prêmio é seu!';
       dice.classList.remove('animate');
       resultEl.innerHTML = `
         <div class="result-card">
           <h3>${data.today.tag} — ${data.today.label} (${data.today.dateStr})</h3>
-          <div>Chance de vitória: <span class="highlight">${data.today.chance}%</span></div>
+          <div>⚡️ Agora mesmo: <span class="highlight">${data.today.chance}%</span></div>
           <div class="comment">${data.today.comment}</div>
         </div>
         <div class="result-card">
           <h3>${data.tomorrow.tag} — ${data.tomorrow.label} (${data.tomorrow.dateStr})</h3>
-          <div>Chance de vitória: <span class="highlight">${data.tomorrow.chance}%</span></div>
+          <div>⏳ Fica para a próxima: <span class="highlight">${data.tomorrow.chance}%</span></div>
           <div class="comment">${data.tomorrow.comment}</div>
         </div>
         <div class="promo-code">💰 Use <strong>BETSORTE</strong> e ganhe <strong>+500%</strong> AGORA</div>
         <div class="buttons">
-          <a href="#" class="cta-button">Ativar bônus e começar</a>
+          <a href="#" class="cta-button">🎰 GANHAR O JACKPOT</a>
           <button type="button" onclick="sharePage()" class="share-button">Salvar e compartilhar</button>
         </div>
       `;
       const sub1 = new URLSearchParams(location.search).get('sub1') || 'direct';
 document.querySelector('.cta-button').href =
-  `https://1wcjlr.com/v3/2672/sweet-bonanza?p=d8ak&sub1=${sub1}`;
+  `https://1wcjlr.com/v3/landing-page/casino?p=yye6&sub1=${sub1}`;
     }
     function startReveal() {
       cards.innerHTML = '';
@@ -172,7 +172,7 @@ document.querySelector('.cta-button').href =
       subtitle.innerText = '';
       loader.style.display = 'block';
       dice.classList.add('animate');
-      setTimeout(showResult, 1500);
+      setTimeout(showResult, 1000);
     }
     function showHint(text) {
       hintEl.innerText = text;
