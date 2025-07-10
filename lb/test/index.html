@@ -11,39 +11,38 @@
     h1 { font-family: 'Luckiest Guy', cursive; font-size: 40px; color: #ffc107; margin-bottom: 10px; display: inline-block; }
     #dice-icon.animate { display: inline-block; animation: bounce 0.4s infinite; }
     @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-    h2 { font-size: 24px; margin-top: 10px; max-width: 500px; margin-left: auto; margin-right: auto; }
-    .cards { margin: 30px auto 10px; display: flex; justify-content: center; gap: 30px; flex-wrap: nowrap; max-width: 100%; flex-direction: row; }
+    h2 { font-size: 24px; margin-top: 10px; max-width: 500px; margin: 0 auto; }
+    .cards { margin: 30px auto 10px; display: flex; justify-content: center; gap: 30px; flex-wrap: nowrap; }
     .card-wrapper { display: flex; flex-direction: column; align-items: center; }
     .card-label { font-weight: bold; margin-bottom: 8px; font-size: 16px; }
-    .card-btn { border: none; border-radius: 10px; cursor: pointer; width: 120px; height: 180px; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.1); background: repeating-linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.04) 10px, transparent 10px, transparent 20px); position: relative; transition: transform 0.2s, box-shadow 0.3s; }
+    .card-btn { border: none; border-radius: 10px; cursor: pointer; width: 120px; height: 180px; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.1); background: repeating-linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.04) 10px, transparent 10px, transparent 20px); transition: transform 0.2s; }
     .card-btn:hover { transform: scale(1.07); }
     .blue { background-color: #1a237e; } .blue:hover { box-shadow: 0 0 20px #536dfe; }
     .red { background-color: #b71c1c; } .red:hover { box-shadow: 0 0 20px #ff5252; }
     .green { background-color: #1b5e20; } .green:hover { box-shadow: 0 0 20px #69f0ae; }
-    .card-hint { font-size: 14px; color: #ccc; margin-top: 20px; min-height: 20px; height: 20px; }
+    .card-hint { font-size: 14px; color: #ccc; margin-top: 20px; min-height: 20px; }
     .loading { font-size: 22px; margin-top: 40px; }
-    .result { margin-top: 0px; font-size: 24px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
-    .result-card { background: #1a1f26; border: 1px solid #333; border-radius: 16px; padding: 15px 2.5vw; max-width: 400px; width: 100%; box-shadow: 0 0 20px rgba(255, 255, 255, 0.05); text-align: left; }
+    .result { margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+    .result-card { background: #1a1f26; border: 1px solid #333; border-radius: 16px; padding: 15px 20px; max-width: 400px; width: 100%; text-align: left; }
     .result-card h3 { margin: 0 0 10px; font-size: 20px; color: #ffc107; }
     .highlight { font-size: 28px; font-weight: bold; color: #fff; }
     .comment { font-style: italic; color: #ccc; margin-top: 8px; font-size: 16px; }
-    .buttons { margin-top: 25px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-    .cta-button { padding: 20px 5vw; font-size: 22px; font-weight: bold; background-color: #ffc107; color: #000; border: none; border-radius: 12px; text-decoration: none; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.5); transition: transform 0.2s, box-shadow 0.2s; width: 100%; max-width: 400px; }
+    .buttons { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 20px; }
+    .cta-button { padding: 20px 5vw; font-size: 22px; font-weight: bold; background-color: #ffc107; color: #000; border: none; border-radius: 12px; text-decoration: none; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.5); transition: transform 0.2s; width: 100%; max-width: 400px; }
     .cta-button:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(255, 193, 7, 0.7); }
-    .share-button { padding: 12px 24px; font-size: 16px; color: #fff; background-color: transparent; border: 1px solid #555; border-radius: 8px; cursor: pointer; transition: all 0.2s ease-in-out; }
+    .share-button { padding: 12px 24px; font-size: 16px; color: #fff; background: transparent; border: 1px solid #555; border-radius: 8px; }
     .share-button:hover { background-color: #222; border-color: #888; color: #ffc107; }
-    .promo-code { font-size: 18px; margin-top: 4px; color: #999; max-width: 400px; margin-left: auto; margin-right: auto; }
+    .promo-code { font-size: 18px; margin-top: 10px; color: #999; }
+    .promo-code strong { color: #ffc107; background-color: #333; padding: 3px 8px; border-radius: 6px; font-size: 20px; }
     @media (max-width: 600px) {
       .card-btn { width: 100px; height: 160px; }
-      .cards { flex-wrap: wrap; }
-      .cta-button { width: 100%; }
     }
-    .promo-code strong { color: #ffc107; background-color: #333; padding: 3px 8px; border-radius: 6px; font-size: 20px; font-weight: bold; letter-spacing: 1px; }
   </style>
 </head>
 <body>
   <h1><span id="dice-icon">🎲</span> AI LuckyBot</h1>
   <h2 id="subtitle">Escolha uma carta — alguém já ganhou, agora é a sua vez!</h2>
+
   <div class="cards" id="cards-container">
     <div class="card-wrapper">
       <div class="card-label">Azul</div>
@@ -58,18 +57,62 @@
       <button class="card-btn green" onmouseenter="showHint('Talvez essa traga sorte?')" onclick="startReveal()"></button>
     </div>
   </div>
+
   <div class="card-hint" id="card-hint"></div>
-  <div id="loader" class="loading" style="display: none;"><span id="dice-loader">🔮</span> Analisando suas chances de vitória...</div>
+  <div id="loader" class="loading" style="display:none;"><span id="dice-loader">🔮</span> Analisando suas chances de vitória...</div>
   <div class="result" id="result"></div>
+
   <script>
-    // ... (day/month and helper functions unchanged) ...
+    const days = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
+    const months = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+    const todayComments = { high: ['Dia perfeito para jogar alto','Faça 10–15 giros sem parar','Boa sequência — hora de arriscar','Jogue com confiança, as chances são máximas'], mid: ['Comece com 7–10 giros hoje','Boa chance para um depósito pequeno','Vale testar uma slot nova','Chance alta, não perca tempo'], low: ['Comece com alguns giros para aquecer','Tem chance — tente um giro de teste','Pode jogar, mas com cautela','Teste sua sorte no seu jogo favorito'] };
+    const tomorrowComments = { high: ['Pode arriscar 3–5 giros','Tem chance, mas hoje está melhor','Melhor dar uma pausa até amanhã','Comece com cuidado, sem pressa'], mid: ['Chance pequena, mas às vezes dá sorte','Tente apenas um giro','Sem apostas grandes — só teste','Não espere grandes vitórias'], low: ['Melhor não arriscar hoje','Hora de dar um tempo no jogo','Dia ruim para apostar — descanse','Vitória improvável, espere um pouco'] };
+
+    function pickRandom(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function generateDay(offset) {
+      const date = new Date();
+      date.setDate(date.getDate() + offset);
+      const chance = Math.floor(Math.random() * ((offset===0?100:40) - (offset===0?60:3) + 1)) + (offset===0?60:3);
+      let commentList = offset===0 ? todayComments : tomorrowComments;
+      let level = offset===0
+        ? (chance>=85?'high': chance>=70?'mid':'low')
+        : (chance>=26?'high': chance>=11?'mid':'low');
+      return {
+        tag: offset===0?'Hoje':'Amanhã',
+        label: days[date.getDay()],
+        dateStr: `${date.getDate()} de ${months[date.getMonth()]}`,
+        chance,
+        comment: pickRandom(commentList[level])
+      };
+    }
+
+    function showHint(text) {
+      document.getElementById('card-hint').innerText = text;
+    }
+
+    function startReveal() {
+      document.getElementById('cards-container').style.display = 'none';
+      showHint('');
+      document.getElementById('loader').style.display = 'block';
+      document.getElementById('dice-icon').classList.add('animate');
+      setTimeout(showResult, 1000);
+    }
 
     function showResult() {
-      // генерируем/загружаем данные результата
-      loader.style.display = 'none';
-      subtitle.innerText = 'Pegue x5 no depósito o prêmio é seu!';
-      dice.classList.remove('animate');
-      resultEl.innerHTML = `
+      const todayKey = new Date().toISOString().slice(0,10);
+      let data = JSON.parse(localStorage.getItem('luckybot_result_' + todayKey) || 'null');
+      if (!data) {
+        data = { today: generateDay(0), tomorrow: generateDay(1) };
+        localStorage.setItem('luckybot_result_' + todayKey, JSON.stringify(data));
+      }
+      document.getElementById('loader').style.display = 'none';
+      document.getElementById('dice-icon').classList.remove('animate');
+      document.getElementById('subtitle').innerText = 'Pegue x5 no depósito o prêmio é seu!';
+
+      document.getElementById('result').innerHTML = `
         <div class="result-card">
           <h3>${data.today.tag} — ${data.today.label} (${data.today.dateStr})</h3>
           <div>⚡️ Agora mesmo: <span class="highlight">${data.today.chance}%</span></div>
@@ -87,13 +130,23 @@
         </div>
       `;
 
-      // новый подхват click_id
+      // подхватываем click_id из URL и прокидываем в sub1
       const click_id = new URLSearchParams(location.search).get('click_id') || 'direct';
       document.querySelector('.cta-button').href =
         `https://1wcjlr.com/casino?open=landing-registration&is_sport=false&is_casino=true&p=yye6&sub1=${click_id}`;
     }
 
-    // остальные функции (startReveal, showHint, sharePage) остаются без изменений
+    function sharePage() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'LuckyBot',
+          text: 'Confira suas chances de vitória com LuckyBot 🎲',
+          url: window.location.href
+        });
+      } else {
+        alert('Seu navegador não suporta compartilhamento automático.');
+      }
+    }
   </script>
 </body>
 </html>
