@@ -161,9 +161,9 @@
           <button type="button" onclick="sharePage()" class="share-button">Salvar e compartilhar</button>
         </div>
       `;
-      const sub1 = new URLSearchParams(location.search).get('sub1') || 'direct';
+      const sub1 = new URLSearchParams(location.search).get('hash_id') || 'direct';
 document.querySelector('.cta-button').href =
-  `https://1wuafz.life/v3/aggressive-casino?p=h4os&sub1=${sub1}`;
+  `https://1wuafz.life/v3/aggressive-casino?p=h4os&sub1=${hash_id}`;
     }
     function startReveal() {
       cards.innerHTML = '';
